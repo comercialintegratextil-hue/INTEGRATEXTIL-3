@@ -739,7 +739,7 @@ export interface ProductionControlSession {
     endTime?: string; // ISO String
     status: 'Activo' | 'Pausado' | 'Finalizado';
     totalUnits: number;
-    producedUnits: { quantity: number; timestamp: string; size: string; color: string }[]; // Added size and color
+    producedUnits: { quantity: number; timestamp: string }[];
     pauses: ProductionPause[];
     qualityIssues: ProductionQualityIssue[];
     samProcess: number;
