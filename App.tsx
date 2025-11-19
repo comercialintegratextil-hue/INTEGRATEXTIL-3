@@ -166,7 +166,7 @@ const App: React.FC = () => {
                     user={currentUser}
                  />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-8 scroll-smooth">
-                    <div className="max-w-7xl mx-auto">
+                    <div className="max-w-screen-2xl mx-auto">
                         {currentModuleConfig?.component}
                     </div>
                 </main>
@@ -265,7 +265,7 @@ const Sidebar: React.FC<{
   };
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-40 flex h-screen flex-col bg-white dark:bg-dark-secondary shadow-soft transition-all duration-300 ease-in-out md:relative md:translate-x-0 ${isExpanded ? 'w-72' : 'w-20'} ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <aside className={`fixed inset-y-0 left-0 z-40 flex h-screen flex-col bg-white dark:bg-dark-secondary border-r border-gray-100 dark:border-gray-700 transition-all duration-300 ease-in-out md:relative md:translate-x-0 ${isExpanded ? 'w-72' : 'w-20'} ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       {/* Logo */}
       <div className={`flex items-center justify-center h-24 border-b border-gray-100 dark:border-gray-700 transition-all duration-300 ${isExpanded ? 'px-6' : 'px-2'}`}>
          {isExpanded ? (
@@ -278,7 +278,7 @@ const Sidebar: React.FC<{
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-6 custom-scrollbar">
+      <nav className="flex-1 space-y-2 overflow-y-auto px-4 py-6 custom-scrollbar">
         {moduleConfig.map(({ id, label, icon: Icon }) => (
           <a
             key={id}
@@ -286,28 +286,27 @@ const Sidebar: React.FC<{
             onClick={(e) => { e.preventDefault(); handleLinkClick(id as ModuleType); }}
             className={`flex items-center p-3.5 text-sm font-medium rounded-xl transition-all duration-200 group relative overflow-hidden ${
               activeModule === id
-                ? 'bg-corp-blue-light text-corp-blue shadow-sm'
+                ? 'bg-corp-blue text-white shadow-md shadow-blue-200 dark:shadow-none'
                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-accent hover:text-corp-blue'
             } ${!isExpanded && 'justify-center'}`}
             title={!isExpanded ? label : ''}
           >
-             {activeModule === id && <div className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 bg-corp-blue rounded-r-full"></div>}
-            <Icon className={`h-5 w-5 flex-shrink-0 transition-colors ${activeModule === id ? 'text-corp-blue' : 'text-gray-400 group-hover:text-corp-blue'}`} />
+            <Icon className={`h-5 w-5 flex-shrink-0 transition-colors ${activeModule === id ? 'text-white' : 'text-gray-400 group-hover:text-corp-blue'}`} />
             <span className={`ml-4 transition-all duration-300 ease-in-out whitespace-nowrap ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 absolute'}`}>{label}</span>
           </a>
         ))}
       </nav>
       
       {/* User Profile Footer */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-700">
-        <button onClick={onProfileClick} className={`w-full flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-dark-accent transition-colors ${!isExpanded && 'justify-center'}`}>
-            <img src={user.avatarUrl} alt="User" className="h-9 w-9 rounded-full object-cover border border-gray-200 shadow-sm" />
+      <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-dark-secondary">
+        <button onClick={onProfileClick} className={`w-full flex items-center p-2 rounded-xl hover:bg-white dark:hover:bg-dark-accent transition-all shadow-sm hover:shadow-md ${!isExpanded && 'justify-center'}`}>
+            <img src={user.avatarUrl} alt="User" className="h-10 w-10 rounded-full object-cover border-2 border-white dark:border-gray-600 shadow-sm" />
             <div className={`ml-3 text-left transition-all duration-300 overflow-hidden ${isExpanded ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`}>
-                <p className="text-sm font-bold text-gray-800 dark:text-white truncate">{user.name}</p>
+                <p className="text-sm font-bold text-corp-dark dark:text-white truncate">{user.name}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.role}</p>
             </div>
         </button>
-        <button onClick={onLogout} className={`mt-2 w-full flex items-center p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors ${!isExpanded ? 'justify-center' : ''}`}>
+        <button onClick={onLogout} className={`mt-3 w-full flex items-center p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors ${!isExpanded ? 'justify-center' : ''}`}>
              <Icons.LogoutIcon className="h-5 w-5" />
              {isExpanded && <span className="ml-3 text-sm font-medium">Cerrar Sesión</span>}
         </button>
@@ -339,9 +338,9 @@ const Header: React.FC<{
                 </div>
             </div>
             <div className="flex items-center space-x-4">
-                <div className="hidden md:flex items-center px-3 py-1 bg-blue-50 dark:bg-dark-accent rounded-full border border-blue-100 dark:border-gray-600">
+                <div className="hidden md:flex items-center px-4 py-1.5 bg-green-50 dark:bg-green-900/20 rounded-full border border-green-100 dark:border-green-800">
                     <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                    <span className="text-xs font-semibold text-corp-blue dark:text-blue-300">Sistema Operativo</span>
+                    <span className="text-xs font-bold text-green-700 dark:text-green-400">Sistema Operativo</span>
                 </div>
                 <button onClick={toggleTheme} className="text-gray-400 hover:text-corp-blue hover:bg-gray-50 dark:hover:bg-dark-accent p-2 rounded-full transition-all">
                     {theme === 'light' ? <Icons.MoonIcon className="h-6 w-6" /> : <Icons.SunIcon className="h-6 w-6" />}

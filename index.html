@@ -33,12 +33,14 @@
                         'dark-accent': '#334155',
                     },
                     boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(45, 108, 223, 0.08)',
-                        'card': '0 2px 12px -2px rgba(0, 0, 0, 0.05)',
+                        'soft': '0 10px 40px -10px rgba(45, 108, 223, 0.1)',
+                        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'neumorph': '20px 20px 60px #d1d9e6, -20px -20px 60px #ffffff',
                     },
                     borderRadius: {
                         'xl': '12px',
                         '2xl': '16px',
+                        '3xl': '24px',
                     }
                 },
             },
@@ -54,20 +56,20 @@
         /* Global Input Style Override for Consistency */
         .input, input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="email"], input[type="password"], select, textarea {
             width: 100%;
-            padding: 0.625rem 1rem;
+            padding: 0.75rem 1rem;
             background-color: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 0.5rem; /* 8px */
-            font-size: 0.875rem;
+            border-radius: 0.75rem; /* 12px */
+            font-size: 0.9rem;
             color: #2D3036;
             transition: all 0.2s ease-in-out;
             outline: none;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .input:focus, input:focus, select:focus, textarea:focus {
             border-color: #2D6CDF;
-            box-shadow: 0 0 0 3px rgba(45, 108, 223, 0.15);
+            box-shadow: 0 0 0 4px rgba(45, 108, 223, 0.1);
         }
 
         .dark .input, .dark input, .dark select, .dark textarea {
@@ -78,20 +80,20 @@
         
         .dark .input:focus {
             border-color: #60A5FA;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
         }
 
         /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
             background: #CBD5E1;
-            border-radius: 4px;
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #94A3B8;
@@ -103,7 +105,8 @@
             font-size: 0.85rem;
             font-weight: 600;
             color: #475569;
-            margin-bottom: 0.375rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
         }
         .dark .label, .dark label {
             color: #94A3B8;
