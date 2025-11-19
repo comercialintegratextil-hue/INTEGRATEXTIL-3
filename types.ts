@@ -1,6 +1,25 @@
+
 import React from 'react';
 
 export type ModuleType = 'dashboard' | 'users' | 'planning' | 'scheduling' | 'engineering' | 'costs' | 'inventory' | 'production' | 'workshops' | 'maintenance' | 'personnel' | 'company';
+
+export type AccessLevel = 'blocked' | 'view' | 'edit';
+
+export interface UserPermission {
+    moduleId: ModuleType;
+    access: AccessLevel;
+}
+
+export interface SystemUser {
+    id: string;
+    name: string;
+    email: string;
+    password?: string; // In a real app, this would be hashed/handled securely backend-side
+    avatarUrl: string;
+    role: 'SuperAdmin' | 'Admin' | 'User';
+    permissions: UserPermission[];
+    status: 'Activo' | 'Inactivo';
+}
 
 export interface KPI {
   title: string;
@@ -28,8 +47,9 @@ export interface ProductionOrder {
     sizeCurve: SizeCurveItem[];
     totalQuantity: number;
     creationDate: string;
-    startDate?: string;
+    startDate?: string; // Existing field
     endDate?: string;
+    clientCommitmentDate?: string; // New field
     materialsAvailable?: boolean;
     costCenterId?: string; // Added for Costs module
 }
@@ -109,6 +129,41 @@ export interface PackagingStep {
     imageUrl: string;
 }
 
+// New Interfaces for Detailed Packaging
+export interface FoldingSpecs {
+    method: string;
+    imageUrl?: string;
+    foldedMeasurements: string;
+    description: string;
+}
+
+export interface IndividualPackagingSpecs {
+    usePolybag: boolean;
+    bagType: 'Transparente' | 'Solapa Adhesiva' | 'Agujero Ventilación' | 'Advertencia Asfixia' | 'Biodegradable' | 'Otro';
+    bagSize: string; // e.g., "30x40 cm"
+    printInfo: string; // Logo, warning, etc.
+    sizeStickerLocation: 'Afuera' | 'Adentro' | 'Ambos' | 'No Aplica';
+    hangerOrSizer: string; // Description of hanger or sizer usage
+}
+
+export interface OuterPackagingSpecs {
+    packingType: 'Solid Size/Solid Color' | 'Assorted (Mezcla)' | 'Otro';
+    unitsPerBox: number;
+    boxName: string; // e.g. "Caja Master A1"
+    boxDimensions: { length: number; width: number; height: number };
+    boxMarking: {
+        labelType: string;
+        labelContent: string;
+    };
+}
+
+export interface DetailedPackagingSpecs {
+    folding: FoldingSpecs;
+    individual: IndividualPackagingSpecs;
+    outer: OuterPackagingSpecs;
+    specialRequirements: string;
+}
+
 export interface TechSheet {
     id: string;
     productId: string;
@@ -118,7 +173,8 @@ export interface TechSheet {
     materials: TechSheetMaterial[];
     specs: TechnicalSpecs;
     processes: TechSheetProcess[];
-    packaging: PackagingStep[];
+    packaging: PackagingStep[]; // Kept for legacy support
+    detailedPackaging?: DetailedPackagingSpecs; // New structured field
 }
 
 export interface Product {
@@ -158,11 +214,13 @@ export interface ServiceOrder {
     providerName?: string;
     processId?: string;
     workstationId?: string;
-    status: 'Borrador' | 'Enviado' | 'Recibido' | 'Completado' | 'Cancelado';
+    status: 'Borrador' | 'Enviado' | 'En Progreso' | 'En Pausa' | 'Recibido' | 'Completado' | 'Cancelado';
     creationDate: string;
     totalQuantity: number;
     items: ServiceOrderItem[];
     materials: ServiceOrderMaterial[];
+    unitPrice?: number;
+    totalCost?: number;
 }
 
 export interface ServiceProvider {
@@ -263,12 +321,21 @@ export interface Shift {
 export interface Workstation {
     id: string;
     name: string;
+    weeklySchedule?: DailyShift[]; // Optional override
 }
 
 export interface ProcessDefinition {
     id: string;
     name: string;
     workstations: Workstation[];
+}
+
+export interface DelayEvent {
+    id: string;
+    date: string; // ISO string of when the delay was recorded
+    hours: number;
+    reason: string;
+    reportedBy?: string;
 }
 
 export interface GanttTask {
@@ -290,6 +357,11 @@ export interface GanttTask {
     shiftName: string;
     requiredHours: number;
     requiredShifts: number;
+    // New fields for delay tracking
+    originalEndDate?: Date;
+    delayHours?: number;
+    delayReason?: string;
+    delayHistory?: DelayEvent[];
 }
 
 export interface KanbanTaskProgress {
@@ -667,7 +739,7 @@ export interface ProductionControlSession {
     endTime?: string; // ISO String
     status: 'Activo' | 'Pausado' | 'Finalizado';
     totalUnits: number;
-    producedUnits: { quantity: number; timestamp: string }[];
+    producedUnits: { quantity: number; timestamp: string; size: string; color: string }[]; // Added size and color
     pauses: ProductionPause[];
     qualityIssues: ProductionQualityIssue[];
     samProcess: number;
