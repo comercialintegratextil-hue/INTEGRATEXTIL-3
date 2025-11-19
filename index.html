@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,48 +5,110 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Integra Textil ERP</title>
+    <!-- Add Inter Font for Corporate Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                },
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
                     colors: {
-                        'dark-primary': '#0F172A', 
-                        'dark-secondary': '#1E293B', 
-                        'dark-accent': '#334155',
-                        
-                        // Corporate Palette
-                        'corp-blue': '#2D6CDF',      // Corporate Blue
-                        'corp-blue-hover': '#1A54B9',
-                        'corp-soft-blue': '#EEF3FF', // Soft Blue for headers/backgrounds
-                        'corp-bg': '#F5F6FA',        // Light Gray Background
-                        'corp-dark': '#2D3036',      // Dark Gray Text
-                        'corp-border': '#E2E8F0',
-                        
-                        // Semantic
+                        'corp-blue': '#2D6CDF', // Corporate Blue
+                        'corp-blue-light': '#EEF3FF', // Soft Blue
+                        'corp-dark': '#2D3036', // Dark Gray text
+                        'corp-bg': '#F5F6FA', // App Background
+                        'brand-blue': '#2D6CDF', // Mapping existing class to new color
                         'brand-orange': '#F97316',
                         'brand-purple': '#A855F7',
-                        'brand-green': '#22C55E',
+                        'brand-green': '#10B981', // Slightly more elegant green
+                        'dark-primary': '#1E293B', 
+                        'dark-secondary': '#0F172A',
+                        'dark-accent': '#334155',
                     },
                     boxShadow: {
                         'soft': '0 4px 20px -2px rgba(45, 108, 223, 0.08)',
-                        'card': '0 2px 10px rgba(0, 0, 0, 0.03)',
-                        'neumorph': '5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff',
+                        'card': '0 2px 12px -2px rgba(0, 0, 0, 0.05)',
                     },
                     borderRadius: {
                         'xl': '12px',
-                        'lg': '10px',
-                        'md': '8px',
+                        '2xl': '16px',
                     }
                 },
             },
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F6FA;
+            color: #2D3036;
+        }
+        
+        /* Global Input Style Override for Consistency */
+        .input, input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="email"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.5rem; /* 8px */
+            font-size: 0.875rem;
+            color: #2D3036;
+            transition: all 0.2s ease-in-out;
+            outline: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .input:focus, input:focus, select:focus, textarea:focus {
+            border-color: #2D6CDF;
+            box-shadow: 0 0 0 3px rgba(45, 108, 223, 0.15);
+        }
+
+        .dark .input, .dark input, .dark select, .dark textarea {
+            background-color: #1E293B;
+            border-color: #475569;
+            color: #F1F5F9;
+        }
+        
+        .dark .input:focus {
+            border-color: #60A5FA;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+        
+        /* Ensure labels are consistent */
+        .label, label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 0.375rem;
+        }
+        .dark .label, .dark label {
+            color: #94A3B8;
+        }
+    </style>
     <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/jspdf-autotable@latest/dist/jspdf.plugin.autotable.js"></script>
@@ -60,43 +121,9 @@
   }
 }
 </script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background-color: #F5F6FA;
-        }
-        .dark body {
-            background-color: #0F172A;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8; 
-        }
-        
-        .animate-fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-corp-bg dark:bg-dark-primary text-corp-dark dark:text-gray-100 transition-colors duration-300">
+<body class="bg-corp-bg dark:bg-dark-primary transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>
