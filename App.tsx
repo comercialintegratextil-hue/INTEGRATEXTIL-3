@@ -32,6 +32,16 @@ const initialUsers: SystemUser[] = [
         role: 'SuperAdmin',
         status: 'Activo',
         permissions: MODULE_IDS.map(id => ({ moduleId: id, access: 'edit' }))
+    },
+    {
+        id: 'admin-erp',
+        name: 'Administrador ERP',
+        email: 'integratextilerp@gmail.com',
+        password: '12345',
+        avatarUrl: 'https://i.pravatar.cc/150?u=admin-erp',
+        role: 'Admin',
+        status: 'Activo',
+        permissions: MODULE_IDS.map(id => ({ moduleId: id, access: 'edit' }))
     }
 ];
 
@@ -76,7 +86,7 @@ const App: React.FC = () => {
         { id: 'inventory', label: 'Inventario', icon: Icons.InventoryIcon, component: <InventoryModule companyInfo={companyInfo}/> },
         { id: 'production', label: 'Control Producción', icon: Icons.ProductionIcon, component: <ProductionControlModule /> },
         { id: 'workshops', label: 'Talleres Externos', icon: Icons.ExternalLinkIcon, component: <WorkshopsModule companyInfo={companyInfo} /> },
-        { id: 'maintenance', label: 'Mantenimiento', icon: Icons.EngineeringIcon, component: <MaintenanceModule /> },
+        { id: 'maintenance', label: 'Gestion Mantenimiento', icon: Icons.EngineeringIcon, component: <MaintenanceModule /> },
         { id: 'personnel', label: 'Personal', icon: Icons.UsersIcon, component: <PersonnelModule /> },
         { id: 'company', label: 'Datos Empresa', icon: Icons.DashboardIcon, component: currentUser ? <CompanyDataModule companyInfo={companyInfo} setCompanyInfo={setCompanyInfo} currentUser={{ name: currentUser.name }} /> : null },
     ];
